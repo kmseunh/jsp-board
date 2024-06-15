@@ -22,7 +22,7 @@ public class BoardDao {
     public int insert(BoardVo vo) {
         Connection con = null;
         PreparedStatement pstmt = null;
-        String query = "INSERT INTO board (title, writer, content, regdate, cnt) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO board (title, writer, content) VALUES (?, ?, ?)";
         int ret = -1;
         try {
             con = ju.getConnection();
@@ -65,6 +65,7 @@ public class BoardDao {
             pstmt.setInt(1, num);
             rs = pstmt.executeQuery();
             if (rs.next()) {
+                updateCnt(num);
                 Date regdate = new Date(rs.getTimestamp("regdate").getTime());
                 vo = new BoardVo(rs.getInt(1), rs.getString(2), rs.getString(3),
                     rs.getString(4), regdate, rs.getInt(6));
@@ -101,7 +102,7 @@ public class BoardDao {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM board";
+        String query = "SELECT * FROM board order by num desc";
         ArrayList<BoardVo> ls = new ArrayList<>();
         try {
             con = ju.getConnection();
@@ -143,6 +144,99 @@ public class BoardDao {
     }
 
     // 수정
+    public int update(BoardVo vo) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "UPDATE board set title = ?, content = ? WHERE num = ?";
+        int ret = -1;
+        try {
+            con = ju.getConnection();
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, vo.getTitle());
+            pstmt.setString(2, vo.getContent());
+            pstmt.setInt(3, vo.getNum());
+            ret = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ret;
+    }
+
+    public int updateCnt(int num) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "UPDATE board set cnt = cnt + 1 WHERE num = ?";
+        int ret = -1;
+        try {
+            con = ju.getConnection();
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, num);
+            ret = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ret;
+    }
 
     // 삭제
+    public int delete(int num) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String query = "DELETE FROM board WHERE num = ?";
+        int ret = -1;
+        try {
+            con = ju.getConnection();
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, num);
+            ret = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ret;
+    }
 }
