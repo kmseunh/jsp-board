@@ -7,36 +7,52 @@
   <version>1.0-SNAPSHOT</version>
   <name>jsp-board Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+      <!-- 기존 의존성 -->
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>3.8.1</version>
+          <scope>test</scope>
+      </dependency>
 
-    <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
-    <dependency>
-        <groupId>jakarta.servlet.jsp.jstl</groupId>
-        <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-        <version>3.0.0</version>
-    </dependency>
+      <!-- JSTL -->
+      <dependency>
           <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.2</version>
+      </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
-    <dependency>
-        <groupId>org.mariadb.jdbc</groupId>
-        <artifactId>mariadb-java-client</artifactId>
-        <version>3.4.0</version>
-    </dependency>
+      <!-- MariaDB JDBC Driver -->
+      <dependency>
+          <groupId>org.mariadb.jdbc</groupId>
+          <artifactId>mariadb-java-client</artifactId>
+          <version>3.4.0</version>
+      </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp -->
-    <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-dbcp</artifactId>
-        <version>11.0.0-M20</version>
-    </dependency>
+      <!-- Tomcat DBCP -->
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-dbcp</artifactId>
+          <version>9.0.65</version>
+      </dependency>
+
+      <!-- SLF4J API -->
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>2.0.9</version>
+      </dependency>
+
+      <!-- Logback Classic -->
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.4.11</version>
+      </dependency>
   </dependencies>
+
   <build>
     <finalName>jsp-board</finalName>
   </build>
